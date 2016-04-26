@@ -13,6 +13,8 @@
 + (void)setKeychainIdentifier:(NSString *)keychainIdentifier;
 + (void)setKeychainAccessGroup:(NSString *)keychainAccessGroup;
 
++ (void)setKeychainAdditionalQuery:(NSDictionary *)additional;
+
 + (BOOL)writeKeychainWithIdentifier:(NSString *)identifier data:(NSData *)data;
 
 + (NSData *)keychainItemPersistentRefWithIdentifier:(NSString *)identifier;

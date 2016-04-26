@@ -13,6 +13,7 @@
 
 static NSString *__keychainIdentifier;
 static NSString *__keychainAccessGroup;
+static NSDictionary *__keychainAdditionalQuery;
 
 
 + (void)initialize {
@@ -27,9 +28,17 @@ static NSString *__keychainAccessGroup;
     __keychainAccessGroup = keychainAccessGroup;
 }
 
++ (void)setKeychainAdditionalQuery:(NSDictionary *)additional {
+    __keychainAdditionalQuery = additional;
+}
+
 + (NSMutableDictionary *)baseQueryWithIdentifier:(NSString *)identifier {
     NSMutableDictionary *query = [@{(__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
                                     (__bridge id)kSecAttrService: __keychainIdentifier} mutableCopy];
+    
+    if (__keychainAdditionalQuery) {
+        [query addEntriesFromDictionary:__keychainAdditionalQuery];
+    }
 
     if (__keychainAccessGroup) {
         query[(__bridge id)kSecAttrAccessGroup] = __keychainAccessGroup;
