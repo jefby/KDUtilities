@@ -236,3 +236,17 @@ static char HiddenStatusKey;
 
 @end
 
+@implementation UITableViewCell (Margin)
+
+- (void)KD_setSeparatorInsetZero {
+    [self setSeparatorInset:UIEdgeInsetsZero];
+    if ([self respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [self setPreservesSuperviewLayoutMargins:NO];
+    }
+    if ([self respondsToSelector:@selector(setLayoutMargins:)]) {
+        [self setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
+
+@end
+

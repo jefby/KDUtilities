@@ -12,6 +12,12 @@
 
 @end
 
+@interface KDBannerViewTapGestureRecognizer : UITapGestureRecognizer
+@end
+
+@implementation KDBannerViewTapGestureRecognizer
+@end
+
 @implementation KDBannerView {
     UIScrollView *_scrollView;
     NSArray *_views;
@@ -20,13 +26,17 @@
 }
 
 - (void)_init {
+    _tapEnabled = YES;
+    
     _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
     _scrollView.pagingEnabled = YES;
     _scrollView.delegate = self;
     _scrollView.showsHorizontalScrollIndicator = NO;
     _scrollView.bounces = NO;
+    _scrollView.scrollsToTop = NO;
     _pageControl = [[UIPageControl alloc] init];
     _pageControl.userInteractionEnabled = NO;
+    _pageControl.hidesForSinglePage = YES;
     
     _pageControlBottomInset = 10.0f;
     
@@ -60,15 +70,9 @@
     for (int i = 0; i < _views.count; i++) {
         UIView *view = _views[i];
         [_scrollView addSubview:view];
-        view.userInteractionEnabled = YES;
-        
-        for (UIGestureRecognizer *gr in view.gestureRecognizers) {
-            [view removeGestureRecognizer:gr];
-        }
-
-        UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
-        [view addGestureRecognizer:gr];
     }
+    
+    [self setTapEnabled:_tapEnabled];
     
     [self setNeedsLayout];
 }
@@ -103,7 +107,14 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat pageWidth = scrollView.frame.size.width;
     int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    _pageControl.currentPage = page;
+    
+    if (_pageControl.currentPage != page) {
+        _pageControl.currentPage = page;
+        
+        if ([self.delegate respondsToSelector:@selector(bannerView:didScrollToView:atIndex:)]) {
+            [self.delegate bannerView:self didScrollToView:_views[page] atIndex:page];
+        }
+    }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -139,8 +150,43 @@
     [self setNeedsLayout];
 }
 
+- (NSInteger)currentIndex {
+    return _pageControl.currentPage;
+}
+
+- (void)setCurrentIndex:(NSInteger)currentIndex {
+    [self setCurrentIndex:currentIndex animated:NO];
+}
+
+- (void)setCurrentIndex:(NSInteger)currentIndex animated:(BOOL)animated {
+    _pageControl.currentPage = currentIndex;
+    [_scrollView setContentOffset:CGPointMake(currentIndex * _scrollView.frame.size.width, 0) animated:animated];
+}
+
 - (void)dealloc {
     [_timer invalidate];
+}
+
+- (void)setTapEnabled:(BOOL)tapEnabled {
+    _tapEnabled = tapEnabled;
+    
+    for (int i = 0; i < _views.count; i++) {
+        UIView *view = _views[i];
+        
+        for (UIGestureRecognizer *gr in view.gestureRecognizers) {
+            if ([gr isKindOfClass:[KDBannerViewTapGestureRecognizer class]]) {
+                [view removeGestureRecognizer:gr];
+            }
+        }
+        
+        if (tapEnabled) {
+            view.userInteractionEnabled = YES;
+            KDBannerViewTapGestureRecognizer *gr = [[KDBannerViewTapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
+            [view addGestureRecognizer:gr];
+        }
+    }
+    
+    
 }
 
 @end

@@ -31,8 +31,12 @@ static const void *kPlaceHolderViewKey = &kPlaceHolderViewKey;
     self.pullToRefreshBlock = block;
     [self.pullToRefreshView addTarget:self action:@selector(triggerPullToRefresh)
                      forControlEvents:UIControlEventValueChanged];
-    
-    
+}
+
+- (void)removePullToRefresh {
+    [self.pullToRefreshView removeFromSuperview];
+    self.pullToRefreshView = nil;
+    self.pullToRefreshBlock = nil;
 }
 
 - (void)triggerPullToRefresh {

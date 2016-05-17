@@ -9,7 +9,8 @@
 #import "KDActionSheet.h"
 #import "KDUtilities.h"
 
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic push
+#pragma cland diagnostic ignored "-Wdeprecated-declarations"
 
 @interface KDActionSheet() <UIActionSheetDelegate>{
     NSMutableArray *_buttonTitleArray;
@@ -109,4 +110,4 @@ static NSMutableArray *ActiveInstances = nil;
 
 @end
 
-#pragma GCC diagnostic warning "-Wdeprecated-declarations"
+#pragma clang diagnostic pop

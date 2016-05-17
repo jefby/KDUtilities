@@ -16,6 +16,8 @@
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))block;
 - (void)addPullToRefreshWithActionHandler:(void (^)(void))block tintColor:(UIColor *)tintColor backgroundColor:(UIColor *)backgroundColor ;
 
+- (void)removePullToRefresh;
+
 /** Tells the pull-to-refresh view to begin refreshing.
  */
 - (void)beginRefreshing;

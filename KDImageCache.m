@@ -214,7 +214,7 @@
 }
 
 - (void)addImageInMemoryCached:(UIImage *)image URL:(NSString *)URL {
-    [_cache setObject:image forKey:URL];
+    [_cache setObject:image forKey:URL cost:image.size.height * image.size.width];
 }
 
 - (void)setCachedImagePath:(NSString *)cachedImagePath {

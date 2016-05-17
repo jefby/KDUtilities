@@ -8,7 +8,8 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 @interface KDAlertView : NSObject
 
@@ -31,4 +32,4 @@
 
 @end
 
-#pragma GCC diagnostic warning "-Wdeprecated-declarations"
+#pragma clang diagnostic pop

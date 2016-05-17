@@ -53,3 +53,16 @@
 - (BOOL)KD_isFreezing;
 
 @end
+
+@interface UITableViewCell (Margin)
+
+- (void)KD_setSeparatorInsetZero;
+
+@end
+
+NS_INLINE CGRect CGRectEdgeInset(CGRect rect, UIEdgeInsets insets) {
+    return CGRectMake(rect.origin.x + insets.left,
+                      rect.origin.y + insets.top,
+                      rect.size.width - insets.left - insets.right,
+                      rect.size.height - insets.top - insets.bottom);
+}

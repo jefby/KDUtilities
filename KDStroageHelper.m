@@ -53,6 +53,10 @@
     return [[self libraryDirectoryPath] stringByAppendingPathComponent:@"KDStroageHelper"];
 }
 
++ (NSString *)pathForIdentifier:(NSString *)identifier {
+    return [[self libraryDataStorageDirectoryPath] stringByAppendingPathComponent:identifier];
+}
+
 + (void)writeDataToLibrary:(NSData *)data identifier:(NSString *)identifier {
     NSString *dir = [self libraryDataStorageDirectoryPath];
     if (![[NSFileManager defaultManager] fileExistsAtPath:dir]) {
@@ -73,9 +77,8 @@
 }
 
 + (void)deleteDataFromLibraryWithIdentifier:(NSString *)identifier {
-    NSString *dir = [self libraryDataStorageDirectoryPath];
     NSError *error;
-    [[NSFileManager defaultManager] removeItemAtPath:[dir stringByAppendingPathComponent:identifier] error:&error];
+    [[NSFileManager defaultManager] removeItemAtPath:[self pathForIdentifier:identifier] error:&error];
     if (error) {
         KDClassLog(@"Error occurred when delete item: %@", error);
     }
@@ -87,7 +90,22 @@
     if (error) {
         KDClassLog(@"Error occurred when delete all data: %@", error);
     }
+}
 
++ (NSDate *)dataModificationDateWithIdentifier:(NSString *)identifier {
+    NSError *error = nil;
+    NSDictionary *info = [[NSFileManager defaultManager] attributesOfItemAtPath:[self pathForIdentifier:identifier] error:&error];
+    return [info fileModificationDate];
+}
+
++ (void)setDataModificationDate:(NSDate *)date identifier:(NSString *)identifier {
+    NSError *error = nil;
+    
+    if (![[NSFileManager defaultManager] setAttributes:@{NSFileModificationDate:date}
+                                          ofItemAtPath:[self pathForIdentifier:identifier]
+                                                 error:&error]) {
+        KDClassLog(@"Error occurred whn set modification date: %@", error);
+    }
 }
 
 @end

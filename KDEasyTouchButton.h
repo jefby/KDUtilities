@@ -8,15 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+IB_DESIGNABLE
 @interface KDEasyTouchButton : UIButton {
     UIColor *_highlightMaskColor;
 }
 
-@property (nonatomic) BOOL adjustAllRectWhenHighlighted;
-@property (nonatomic) BOOL animatedDismissAllRectHighlighted;
+@property (nonatomic) IBInspectable BOOL adjustAllRectWhenHighlighted;
+@property (nonatomic) IBInspectable BOOL animatedDismissAllRectHighlighted;
 
-@property (nonatomic) UIColor *highlightMaskColor;
+@property (nonatomic) IBInspectable UIColor *highlightMaskColor;
 
-@property (nonatomic) BOOL masksToCircle;
+@property (nonatomic) IBInspectable BOOL masksToCircle;
 
 @end

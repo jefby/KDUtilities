@@ -125,7 +125,12 @@
 
 - (void)forwardInvocation:(NSInvocation *)invocation {
     KDClassLog(@"WARNING! NSNull receive unknown invocation.");
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnonnull"
     [invocation invokeWithTarget:nil];
+#pragma clang diagnostic pop
+
 }
 
 #endif

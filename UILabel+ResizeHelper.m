@@ -12,7 +12,8 @@
 
 @implementation UILabel (KDResizeHelper)
 
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#pragma clang diagnostic push
+#pragma cland diagnostic ignored "-Wdeprecated-declarations"
 
 - (void)KD_resizeBaseOnLeft {
     CGSize size = [self.text KD_sizeWithAttributeFont:self.font];
@@ -60,4 +61,4 @@
 @end
 
 
-#pragma GCC diagnostic warning "-Wdeprecated-declarations"
+#pragma clang diagnostic pop

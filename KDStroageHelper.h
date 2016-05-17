@@ -18,6 +18,8 @@
 + (void)writeDataToLibrary:(NSData *)data identifier:(NSString *)identifier;
 + (NSData *)dataFromLibraryWithIdentifier:(NSString *)identifier;
 + (void)deleteDataFromLibraryWithIdentifier:(NSString *)identifier;
++ (NSDate *)dataModificationDateWithIdentifier:(NSString *)identifier;
++ (void)setDataModificationDate:(NSDate *)date identifier:(NSString *)identifier;
 
 + (void)deleteAllData;
 

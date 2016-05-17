@@ -13,6 +13,7 @@
 @protocol KDBannerViewDelegate <NSObject>
 @optional
 - (void)bannerView:(KDBannerView *)bannerView didTapView:(UIView *)view atIndex:(NSInteger)index;
+- (void)bannerView:(KDBannerView *)bannerView didScrollToView:(UIView *)view atIndex:(NSInteger)index;
 
 @end
 
@@ -26,5 +27,11 @@
 @property (nonatomic, copy) NSArray *views;
 
 @property (nonatomic, readonly) UIPageControl *pageControl;
+@property (nonatomic, readonly) UIScrollView *scrollView;
+
+@property (nonatomic) NSInteger currentIndex;
+- (void)setCurrentIndex:(NSInteger)currentIndex animated:(BOOL)animated;
+
+@property (nonatomic) BOOL tapEnabled;
 
 @end
