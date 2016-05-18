@@ -73,6 +73,7 @@
 
 - (void)setMasksToCircle:(BOOL)masksToCircle {
     _masksToCircle = masksToCircle;
+    _cornerRadius = 0;
     self.layer.masksToBounds = masksToCircle;
     self.imageView.layer.masksToBounds = masksToCircle;
     if (!masksToCircle) {
@@ -81,6 +82,15 @@
     } else {
         [self setNeedsLayout];
     }
+}
+
+- (void)setCornerRadius:(CGFloat)cornerRadius {
+    if (_masksToCircle) {
+        [self setMasksToCircle:NO];
+    }
+    _cornerRadius = cornerRadius;
+    self.layer.cornerRadius = cornerRadius;
+    self.layer.masksToBounds = YES;
 }
 
 - (void)layoutSubviews {

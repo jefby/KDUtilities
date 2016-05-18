@@ -20,4 +20,6 @@ IB_DESIGNABLE
 
 @property (nonatomic) IBInspectable BOOL masksToCircle;
 
+@property (nonatomic) IBInspectable CGFloat cornerRadius;
+
 @end
