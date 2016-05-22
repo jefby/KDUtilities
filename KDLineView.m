@@ -18,17 +18,13 @@
 - (void)drawRect:(CGRect)rect {
     if (self.lineColor) {
         CGContextRef context = UIGraphicsGetCurrentContext();
-        CGContextSetStrokeColorWithColor(context, self.lineColor.CGColor);
-        CGContextSetLineWidth(context, KDUtilOnePixelSize());
-        CGContextMoveToPoint(context, 0.0f, 0.0f);
+        CGContextSetFillColorWithColor(context, self.lineColor.CGColor);
         
         if (self.bounds.size.width > self.bounds.size.height) {
-            CGContextAddLineToPoint(context, self.bounds.size.width, 0);
+            CGContextFillRect(context, CGRectMake(0, 0, self.bounds.size.width, 1.0 / self.contentScaleFactor));
         } else {
-            CGContextAddLineToPoint(context, 0, self.bounds.size.height);
+            CGContextFillRect(context, CGRectMake(0, 0, 1.0 / self.contentScaleFactor, self.bounds.size.height));
         }
-        
-        CGContextStrokePath(context);
     }
 }
 
