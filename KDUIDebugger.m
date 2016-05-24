@@ -28,7 +28,7 @@ void _KDUIDebuggerPrintSubviews(UIView *view, int indent) {
     NSString *indentStr = @(indentCStr);
     free(indentCStr);
     for (UIView *subview in view.subviews) {
-        KDLog(@"%@%@: %@", indentStr, NSStringFromClass([subview class]), NSStringFromCGRect(subview.frame));
+        KDLog(@"KDUIDebugger", @"%@%@: %@", indentStr, NSStringFromClass([subview class]), NSStringFromCGRect(subview.frame));
         _KDUIDebuggerPrintSubviews(subview, indent + 1);
     }
 #endif

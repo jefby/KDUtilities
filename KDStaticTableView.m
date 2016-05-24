@@ -45,9 +45,10 @@
         [cell KD_setFrameOriginY:YOffset];
         YOffset += cell.frame.size.height;
         if (i != row - 1) {
-            YOffset += 2;
+            YOffset += 1.0f / self.contentScaleFactor;
         }
         [self addSubview:cell];
+        cell.userInteractionEnabled = NO;
     }
     _numberOfRow = row;
     [self KD_setFrameSizeHeight:YOffset];
@@ -56,8 +57,8 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    CGContextRef context    = UIGraphicsGetCurrentContext();
-    CGContextSetLineWidth(context, 1);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetLineWidth(context, 1.0f / self.contentScaleFactor);
     for (UIView *subview in self.subviews) {
         if (subview.frame.origin.y == 0) {
             continue;
@@ -67,16 +68,10 @@
         CGContextMoveToPoint(context, 0, subview.frame.origin.y - 2);
         CGContextAddLineToPoint(context, self.bounds.size.width, subview.frame.origin.y - 2);
         CGContextStrokePath(context);
-
-        CGContextSetStrokeColorWithColor(context, self.separatorShadowColor.CGColor);
-        CGContextMoveToPoint(context, 0, subview.frame.origin.y - 1);
-        CGContextAddLineToPoint(context, self.bounds.size.width, subview.frame.origin.y - 1);
-        CGContextStrokePath(context);
     }
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     if (self.isSelectEnabled) {
         [self addSubview:_selectMaskView];
         _selectMaskView.frame = CGRectZero;
@@ -89,8 +84,7 @@
     }
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     if (self.isSelectEnabled) {
         UITouch *touch = [touches anyObject];
         CGPoint location = [touch locationInView:self];
@@ -101,8 +95,7 @@
     }
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if (self.isSelectEnabled) {
         [_selectMaskView removeFromSuperview];
         UITouch *touch = [touches anyObject];

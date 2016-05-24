@@ -18,11 +18,10 @@
 
 - (void)reloadData;
 
-@property (unsafe_unretained) id<KDStaticTableViewDataSource> dataSource;
-@property (unsafe_unretained) id<KDStaticTableViewDelegate> delegate;
+@property (unsafe_unretained) IBOutlet id<KDStaticTableViewDataSource> dataSource;
+@property (unsafe_unretained) IBOutlet id<KDStaticTableViewDelegate> delegate;
 
 @property UIColor *separatorColor;
-@property UIColor *separatorShadowColor;
 @property UIColor *selectedMaskColor;
 
 @property (getter = isSelectEnabled) BOOL selectEnabled;
