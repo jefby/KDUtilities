@@ -12,5 +12,6 @@ IB_DESIGNABLE
 @interface KDLineView : UIView
 
 @property (nonatomic) IBInspectable UIColor *lineColor;
+@property (nonatomic) IBInspectable BOOL alignToBottom;
 
 @end
