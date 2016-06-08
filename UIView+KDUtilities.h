@@ -66,3 +66,6 @@ NS_INLINE CGRect CGRectEdgeInset(CGRect rect, UIEdgeInsets insets) {
                       rect.size.width - insets.left - insets.right,
                       rect.size.height - insets.top - insets.bottom);
 }
+
+
+extern UIView *KDUtilFindViewInSuperViews(UIView *view, Class viewClass);

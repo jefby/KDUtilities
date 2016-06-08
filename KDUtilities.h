@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-#define KDAssertRequireMainThread() KDAssert([NSThread isMainThread], @"This method can only be invoked on main thread!");
-#define KDAssertRequirePad() KDAssert(KDUtilIsDevicePad(), @"This method can only be invoked on iPad!");
-#define KDAssertRequireNotPad() KDAssert(!KDUtilIsDevicePad(), @"This method can not be invoked on iPad!");
+#if TARGET_OS_IOS
+#import "KDUtilities+iOS.h"
+#endif
+
 
 #define KDUtilRemoveNotificationCenterObserverDealloc - (void)dealloc{ [[NSNotificationCenter defaultCenter] removeObserver:self]; }
 
@@ -44,39 +45,6 @@ extern void KDAssert(BOOL eval, NSString *format, ...);
 
 #define KDSimpleError(reason) [NSError errorWithDomain:@"KDSimpleError" code:0 userInfo:@{NSLocalizedDescriptionKey: reason}]
 
-#if TARGET_OS_IOS
-
-#import <UIKit/UIKit.h>
-
-NS_INLINE BOOL KDUtilIsDevicePad() {
-    return UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad;
-}
-
-extern BOOL KDUtilIsOSVersionHigherOrEqual(NSString* version);
-
-NS_INLINE CGFloat KDUtilScreenWidth() {
-    return [UIScreen mainScreen].bounds.size.width;
-}
-
-NS_INLINE CGFloat KDUtilOnePixelSize() {
-    return 1.0f / [UIScreen mainScreen].scale;
-}
-
-extern UIView *KDUtilFindViewInSuperViews(UIView *view, Class viewClass);
-
-
-NS_INLINE BOOL KDUtilIsDeviceJailbroken() {
-#if TARGET_IPHONE_SIMULATOR
-    return NO;
-#endif
-    NSArray *libraryPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-    NSString *libraryPath = libraryPaths.firstObject;
-    
-    NSArray *c = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[libraryPath substringFromIndex:libraryPath.length - 8] error:nil];
-    return c.count != 0;
-}
-
-#endif
 
 extern BOOL KDUtilIsOSMajorVersionHigherOrEqual(int version);
 

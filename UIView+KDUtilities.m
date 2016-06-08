@@ -250,3 +250,10 @@ static char HiddenStatusKey;
 
 @end
 
+extern UIView *KDUtilFindViewInSuperViews(UIView *view, Class viewClass) {
+    while (view != nil) {
+        view = view.superview;
+        if ([view isKindOfClass:viewClass]) return view;
+    }
+    return nil;
+}
