@@ -10,8 +10,8 @@
 
 @interface KDFIFOQueueNode : NSObject
 
-@property KDFIFOQueueNode *nextNode;
-@property id payload;
+@property (nonatomic) KDFIFOQueueNode *nextNode;
+@property (nonatomic) id payload;
 
 @end
 
@@ -54,11 +54,13 @@
         _lastNode = nil;
     }
     
+    id obj = node.payload;
+    
     _count--;
     if (needLock) {
         [_lock unlock];
     }
-    return node.payload;
+    return obj;
 }
 
 - (id)peek {

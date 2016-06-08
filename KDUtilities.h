@@ -73,3 +73,10 @@ NS_INLINE BOOL KDUtilIsDeviceJailbroken() {
 #endif
 
 extern BOOL KDUtilIsOSMajorVersionHigherOrEqual(int version);
+
+
+@interface NSNumber (KDUtilities)
+
+- (void)KD_forLoop:(void (^)(int i))block;
+
+@end

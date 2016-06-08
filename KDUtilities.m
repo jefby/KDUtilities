@@ -98,9 +98,6 @@ extern BOOL KDUtilIsOSMajorVersionHigherOrEqual(int version) {
     return OSMajorVersion >= version;
 }
 
-
-
-
 extern void KDAssert(BOOL eval, NSString *format, ...) {
     va_list ap;
     va_start(ap, format);
@@ -118,3 +115,15 @@ extern void KDAssert(BOOL eval, NSString *format, ...) {
     }
     va_end(ap);
 }
+
+@implementation NSNumber (KDUtilities)
+
+- (void)KD_forLoop:(void (^)(int i))block {
+    int value = self.intValue;
+    
+    for (int i = 0; i < value; i++) {
+        block(i);
+    }
+}
+
+@end
