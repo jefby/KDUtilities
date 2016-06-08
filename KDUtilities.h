@@ -36,6 +36,12 @@ extern NSString *KDUtilStringGuard(id obj);
 
 extern void KDAssert(BOOL eval, NSString *format, ...);
 
+@interface NSObject (KDUtilitiesNotNull)
+
+- (BOOL)KD_notNull;
+
+@end
+
 #define KDSimpleError(reason) [NSError errorWithDomain:@"KDSimpleError" code:0 userInfo:@{NSLocalizedDescriptionKey: reason}]
 
 #if TARGET_OS_IOS

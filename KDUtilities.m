@@ -30,6 +30,15 @@ extern NSString *KDUtilStringGuard(id obj) {
     return nil;
 }
 
+@implementation NSObject (KDUtilitiesNotNull)
+
+- (BOOL)KD_notNull {
+    return self != [NSNull null];
+}
+
+@end
+
+
 #if TARGET_OS_IOS
 
 #import "KDAlertView.h"

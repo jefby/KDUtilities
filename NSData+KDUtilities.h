@@ -12,5 +12,7 @@
 
 - (NSString *)stringWithUTF8Encoding;
 - (NSString *)stringWithEncoding:(NSStringEncoding)encoding;
+- (NSString *)stringValue;
+- (NSArray *)componentsSeparatedByData:(NSData *)separator;
 
 @end
