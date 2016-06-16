@@ -16,6 +16,7 @@
 #define KDUtilRemoveNotificationCenterObserverDealloc - (void)dealloc{ [[NSNotificationCenter defaultCenter] removeObserver:self]; }
 
 #define KDUtilDefineWeakSelfRef __weak __typeof(self) weakSelf = self;
+#define KDUtilDefineStrongSelfRefFromWeakSelfRef __strong __typeof(self) strongSelf = weakSelf;
 
 #define KDUtilThrowNoImplementationException @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:[NSString stringWithFormat:@"This method has not been implemented: %@", NSStringFromSelector(_cmd)] userInfo:nil];
 

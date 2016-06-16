@@ -80,4 +80,8 @@
 
 - (NSString *)KD_stringByChineseRelativeFormatAllowFutureDate:(BOOL)allowFutureDate;
 
+- (NSString *)KD_dateStringWithStyle:(NSDateFormatterStyle)style;
+- (NSString *)KD_timeStringWithStyle:(NSDateFormatterStyle)style;
+- (NSString *)KD_dateAndTimeStringWithStyle:(NSDateFormatterStyle)style;
+
 @end

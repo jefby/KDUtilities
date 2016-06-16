@@ -47,6 +47,27 @@
     }
 }
 
+- (NSString *)KD_dateStringWithStyle:(NSDateFormatterStyle)style {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateStyle = style;
+    formatter.timeStyle = NSDateFormatterNoStyle;
+    return [formatter stringFromDate:self];
+}
+
+- (NSString *)KD_timeStringWithStyle:(NSDateFormatterStyle)style {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateStyle = NSDateFormatterNoStyle;
+    formatter.timeStyle = style;
+    return [formatter stringFromDate:self];
+}
+
+- (NSString *)KD_dateAndTimeStringWithStyle:(NSDateFormatterStyle)style {
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateStyle = style;
+    formatter.timeStyle = style;
+    return [formatter stringFromDate:self];
+}
+
 @end
 
 
