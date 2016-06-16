@@ -34,7 +34,7 @@
             _darkView.alpha = 1;
         } else {
             if (_animatedDismissAllRectHighlighted) {
-                [UIView animateWithDuration:0.6 animations:^{
+                [UIView animateWithDuration:0.3 animations:^{
                     _darkView.alpha = 0;
                 }];
             } else {
