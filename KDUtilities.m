@@ -7,6 +7,9 @@
 //
 
 #import "KDUtilities.h"
+#if TARGET_OS_IOS
+#import "KDAlertView.h"
+#endif
 
 extern NSNumber *KDUtilIntegerValueNumberGuard(id obj) {
     if (!obj) return nil;
