@@ -154,7 +154,7 @@ void KDLoggerPrintEnviroment() {
     uname(&systemInfo);
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    KDLog(@"KDLogger", @"Enviroment: %@, %@, %@(%@)", @(systemInfo.machine), [currentDevice systemVersion], infoDictionary[@"CFBundleShortVersionString"], infoDictionary[@"CFBundleVersion"]);
+    KDLog(@"KDLogger", @"Enviroment: %@, %@, %@(%@), jailbroken: %d", @(systemInfo.machine), [currentDevice systemVersion], infoDictionary[@"CFBundleShortVersionString"], infoDictionary[@"CFBundleVersion"], KDUtilIsDeviceJailbroken());
 }
 
 #endif
