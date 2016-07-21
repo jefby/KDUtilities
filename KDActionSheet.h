@@ -19,5 +19,6 @@
 
 - (void)showInView:(UIView *)view;
 - (void)showFromBarButtonItem:(UIBarButtonItem *)item animated:(BOOL)animated;
+- (void)showFromRect:(CGRect)rect inView:(UIView *)inView animated:(BOOL)animated;
 
 @end

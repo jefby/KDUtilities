@@ -57,6 +57,10 @@ extern BOOL KDUtilIsOSMajorVersionHigherOrEqual(int version) {
 }
 #endif
 
+#if TARGET_OS_IOS
+#import "KDAlertView.h"
+#endif
+
 extern void KDAssert(BOOL eval, NSString *format, ...) {
     va_list ap;
     va_start(ap, format);

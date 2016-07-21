@@ -86,6 +86,10 @@ static NSMutableArray *ActiveInstances = nil;
     [[self _prepare] showFromBarButtonItem:item animated:animated];
 }
 
+- (void)showFromRect:(CGRect)rect inView:(UIView *)inView animated:(BOOL)animated {
+    [[self _prepare] showFromRect:rect inView:inView animated:animated];
+}
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == actionSheet.cancelButtonIndex) {
         if (_cancelAction)
