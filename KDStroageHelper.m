@@ -45,6 +45,17 @@
     return cachePath;
 }
 
++ (NSString *)applicationSupportDirectoryPathWithName:(NSString *)name {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths.firstObject stringByAppendingPathComponent:name];
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
+    return path;
+}
+
 + (NSString *)temporaryDirectoryPath {
     return NSTemporaryDirectory();
 }

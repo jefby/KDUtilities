@@ -10,4 +10,7 @@
 
 @interface KDAHUDView : NSView
 
++ (KDAHUDView *)showHUDInView:(NSView *)view;
++ (void)hideHUDInView:(NSView *)view;
+
 @end

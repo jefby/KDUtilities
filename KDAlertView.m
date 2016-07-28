@@ -8,6 +8,11 @@
 #import "KDAlertView.h"
 #import "KDUtilities.h"
 
+static NSMutableArray *__ActiveInstances = nil;
+
+
+#if TARGET_OS_IOS
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
@@ -21,7 +26,6 @@
 }
 @end
 
-static NSMutableArray *__ActiveInstances = nil;
 
 @implementation KDAlertView
 
@@ -114,6 +118,97 @@ static NSMutableArray *__ActiveInstances = nil;
     _systemAlertView.message = message;
 }
 
++ (void)showErrorMessage:(NSString *)message {
+    KDAlertView *av = [[KDAlertView alloc] initWithTitle:@"Error" message:message cancelButtonTitle:@"OK" cancelAction:nil];
+    [av show];
+}
+
 @end
 
 #pragma clang diagnostic pop
+
+#else
+
+@implementation KDAlertView {
+    NSMutableArray *_buttonTitleArray;
+    NSMutableArray *_buttonActionBlockArray;
+}
+
+- (instancetype)initWithTitle:(NSString *)title
+                      message:(NSString *)message
+            cancelButtonTitle:(NSString *)cancelButtonTitle
+                 cancelAction:(void ( ^)(KDAlertView *alertView))cancelAction {
+    static dispatch_once_t pred;
+    dispatch_once(&pred, ^{
+        __ActiveInstances = [NSMutableArray array];
+    });
+
+    self = [super init];
+    if (self) {
+        _buttonTitleArray = [NSMutableArray array];
+        _buttonActionBlockArray = [NSMutableArray array];
+
+        _title = [title copy];
+        _message = [message copy];
+        
+        if (cancelButtonTitle) {
+            [_buttonTitleArray addObject:cancelButtonTitle];
+            [_buttonActionBlockArray addObject:cancelAction ? [cancelAction copy]: [NSNull null]];
+        }
+
+    }
+    return self;
+}
+
+- (void)addButtonWithTitle:(NSString *)title action:(void ( ^)(KDAlertView *alertView))action {
+    [_buttonTitleArray addObject:title];
+    [_buttonActionBlockArray addObject:action ? [action copy] : [NSNull null]];
+}
+
+- (void)show {
+    [__ActiveInstances addObject:self];
+    
+    NSAlert *alert = [[NSAlert alloc] init];
+    if (_title) {
+        [alert setMessageText:_title];
+    }
+    if (_message) {
+        [alert setInformativeText:_message];
+    }
+    
+    for (NSString *button in _buttonTitleArray) {
+        [alert addButtonWithTitle:button];
+    }
+    
+    NSModalResponse response = [alert runModal];
+    
+    long idx = response - NSAlertFirstButtonReturn;
+    if (idx >= 0) {
+        id actionBlock = _buttonActionBlockArray[idx];
+        if (actionBlock != [NSNull null]) {
+            void (^block)(KDAlertView *) = actionBlock;
+            block(self);
+        }
+    }
+    
+    [__ActiveInstances removeObject:self];
+}
+
++ (void)showMessage:(NSString *)message cancelButtonTitle:(NSString *)cancelButtonTitle {
+    KDAlertView *av = [[KDAlertView alloc] initWithTitle:message message:nil cancelButtonTitle:cancelButtonTitle cancelAction:nil];
+    [av show];
+}
+
++ (void)showErrorMessage:(NSString *)message {
+    KDAlertView *av = [[KDAlertView alloc] initWithTitle:@"Error" message:message cancelButtonTitle:@"OK" cancelAction:nil];
+    [av show];
+}
+
++ (KDAlertView *)presentingAlertView {
+    return __ActiveInstances.lastObject;
+}
+
+
+@end
+
+#endif

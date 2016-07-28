@@ -15,4 +15,6 @@
 - (NSString *)stringValue;
 - (NSArray *)componentsSeparatedByData:(NSData *)separator;
 
+- (NSString *)KD_MD5;
+
 @end

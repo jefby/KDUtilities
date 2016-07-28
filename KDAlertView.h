@@ -5,8 +5,11 @@
 //  Created by Blankwonder on 11/20/12.
 //
 
-#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+
+#if TARGET_OS_IOS
+#import <UIKit/UIKit.h>
+#endif
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -21,9 +24,12 @@
 - (void)addButtonWithTitle:(NSString *)title action:(void ( ^)(KDAlertView *alertView))action;
 - (void)show;
 
+#if TARGET_OS_IOS
 - (UIAlertView *)systemAlertView;
+#endif
 
 + (void)showMessage:(NSString *)message cancelButtonTitle:(NSString *)cancelButtonTitle;
++ (void)showErrorMessage:(NSString *)message;
 
 + (KDAlertView *)presentingAlertView;
 

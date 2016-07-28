@@ -15,6 +15,8 @@
 + (NSString *)cacheDirectoryPath;
 + (NSString *)temporaryDirectoryPath;
 
++ (NSString *)applicationSupportDirectoryPathWithName:(NSString *)name;
+
 + (void)writeDataToLibrary:(NSData *)data identifier:(NSString *)identifier;
 + (NSData *)dataFromLibraryWithIdentifier:(NSString *)identifier;
 + (void)deleteDataFromLibraryWithIdentifier:(NSString *)identifier;

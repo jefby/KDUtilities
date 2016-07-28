@@ -9,9 +9,15 @@
 #import "KDAHUDView.h"
 #import <QuartzCore/QuartzCore.h>
 
-@implementation KDAHUDView {
+@interface KDAHUDContentView : NSView
+
+@end
+
+
+@implementation KDAHUDContentView {
     NSProgressIndicator *_progressIndicator;
 }
+
 
 - (instancetype)initWithFrame:(NSRect)frameRect {
     self = [super initWithFrame:frameRect];
@@ -40,6 +46,55 @@
 - (void)drawRect:(NSRect)dirtyRect {
     [[NSColor colorWithWhite:0 alpha:0.9] setFill];
     [[NSBezierPath bezierPathWithRoundedRect:self.bounds xRadius:5 yRadius:5] fill];
+}
+
+@end
+
+
+static const CGFloat kSize = 80;
+
+@implementation KDAHUDView {
+    KDAHUDContentView *_contentView;
+}
+
++ (KDAHUDView *)showHUDInView:(NSView *)view {
+    KDAHUDView *HUD = [[KDAHUDView alloc] initWithFrame:view.bounds];
+    HUD.autoresizingMask = NSViewWidthSizable|NSViewHeightSizable;
+    [view addSubview:HUD];
+    
+    return HUD;
+}
+
++ (void)hideHUDInView:(NSView *)view {
+    for (NSView *subview in view.subviews) {
+        if ([subview isMemberOfClass:[KDAHUDView class]]) {
+            [subview removeFromSuperview];
+        }
+    }
+}
+
+
+
+- (instancetype)initWithFrame:(NSRect)frameRect {
+    self = [super initWithFrame:frameRect];
+    if (self) {
+        _contentView = [[KDAHUDContentView alloc] initWithFrame:NSMakeRect(0, 0, kSize, kSize)];
+        [self addSubview:_contentView];
+        [self makeCenter];
+    }
+    return self;
+}
+
+- (void)makeCenter {
+    _contentView.frame = NSMakeRect((self.bounds.size.width - kSize) / 2.0f, (self.bounds.size.height - kSize) / 2.0f, kSize, kSize);
+}
+
+- (void)layout {
+    [super layout];
+    [self makeCenter];
+}
+
+- (void)mouseDown:(NSEvent *)theEvent{
 }
 
 @end
