@@ -66,9 +66,10 @@ static const CGFloat kSize = 80;
 }
 
 + (void)hideHUDInView:(NSView *)view {
-    for (NSView *subview in view.subviews) {
+    for (NSView *subview in view.subviews.copy) {
         if ([subview isMemberOfClass:[KDAHUDView class]]) {
             [subview removeFromSuperview];
+            break;
         }
     }
 }

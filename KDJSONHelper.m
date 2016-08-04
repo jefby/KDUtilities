@@ -22,7 +22,7 @@ static char NSDataAssociatedJSONObject;
     NSError *error;
     result = [NSJSONSerialization JSONObjectWithData:self options:0 error:&error];
     if (error) {
-        KDLog(@"JSONHelper", @"Error occered when JSON deserializate NSData to object: %@", error);
+        KDLog(@"JSONHelper", @"Error occered when JSON deserializate NSData to object: %@, data: %@", error, self);
         return nil;
     }
 
@@ -38,7 +38,7 @@ static char NSDataAssociatedJSONObject;
     NSError *error;
     id result = [NSJSONSerialization JSONObjectWithData:self options:NSJSONReadingMutableContainers error:&error];
     if (error) {
-        KDLog(@"JSONHelper", @"Error occered when JSON deserializate NSData to object: %@", error);
+        KDLog(@"JSONHelper", @"Error occered when JSON deserializate NSData to object: %@, data: %@", error, self);
         return nil;
     }
     
@@ -52,7 +52,7 @@ static NSData *JSONDataFromObject(id object) {
     NSError *error;
     NSData *result = [NSJSONSerialization dataWithJSONObject:object options:0 error:&error];
     if (error) {
-        KDLog(@"JSONHelper", @"Error occered when JSON deserializate NSData to object: %@", error);
+        KDLog(@"JSONHelper", @"Error occered when JSON serializate object to NSData: %@", error);
         return nil;
     }
 

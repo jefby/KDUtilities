@@ -180,18 +180,37 @@ static NSMutableArray *__ActiveInstances = nil;
         [alert addButtonWithTitle:button];
     }
     
-    NSModalResponse response = [alert runModal];
+    alert.alertStyle = self.alertStyle;
     
-    long idx = response - NSAlertFirstButtonReturn;
-    if (idx >= 0) {
-        id actionBlock = _buttonActionBlockArray[idx];
-        if (actionBlock != [NSNull null]) {
-            void (^block)(KDAlertView *) = actionBlock;
-            block(self);
+    NSWindow *window = [NSApplication sharedApplication].keyWindow ?: [NSApplication sharedApplication].mainWindow;
+    
+    if (window) {
+        [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse response) {
+            long idx = response - NSAlertFirstButtonReturn;
+            if (idx >= 0) {
+                id actionBlock = _buttonActionBlockArray[idx];
+                if (actionBlock != [NSNull null]) {
+                    void (^block)(KDAlertView *) = actionBlock;
+                    block(self);
+                }
+            }
+            
+            [__ActiveInstances removeObject:self];
+        }];
+    } else {
+        NSModalResponse response = [alert runModal];
+        long idx = response - NSAlertFirstButtonReturn;
+        if (idx >= 0) {
+            id actionBlock = _buttonActionBlockArray[idx];
+            if (actionBlock != [NSNull null]) {
+                void (^block)(KDAlertView *) = actionBlock;
+                block(self);
+            }
         }
+        
+        [__ActiveInstances removeObject:self];
+
     }
-    
-    [__ActiveInstances removeObject:self];
 }
 
 + (void)showMessage:(NSString *)message cancelButtonTitle:(NSString *)cancelButtonTitle {
@@ -201,6 +220,7 @@ static NSMutableArray *__ActiveInstances = nil;
 
 + (void)showErrorMessage:(NSString *)message {
     KDAlertView *av = [[KDAlertView alloc] initWithTitle:@"Error" message:message cancelButtonTitle:@"OK" cancelAction:nil];
+    av.alertStyle = NSCriticalAlertStyle;
     [av show];
 }
 

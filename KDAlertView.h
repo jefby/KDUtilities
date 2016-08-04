@@ -26,6 +26,8 @@
 
 #if TARGET_OS_IOS
 - (UIAlertView *)systemAlertView;
+#else
+@property (nonatomic) NSAlertStyle alertStyle;
 #endif
 
 + (void)showMessage:(NSString *)message cancelButtonTitle:(NSString *)cancelButtonTitle;
