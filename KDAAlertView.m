@@ -5,6 +5,7 @@
 //  Created by Blankwonder on 7/30/16.
 //  Copyright © 2016 Yach. All rights reserved.
 //
+#if TARGET_OS_MAC
 
 #import "KDAAlertView.h"
 
@@ -117,3 +118,4 @@ static const CGFloat kButtonHeight = 32;
 }
 
 @end
+#endif

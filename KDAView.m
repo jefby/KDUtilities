@@ -5,6 +5,8 @@
 //  Created by Blankwonder on 7/8/16.
 //  Copyright © 2016 Yach. All rights reserved.
 //
+#if TARGET_OS_MAC
+
 
 #import "KDAView.h"
 
@@ -26,3 +28,4 @@
 }
 
 @end
+#endif

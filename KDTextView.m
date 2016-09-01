@@ -5,8 +5,11 @@
 //  Created by Blankwonder on 1/8/16.
 //  Copyright © 2016 Daxiang. All rights reserved.
 //
+#if 0
 
 #import "KDTextView.h"
+#import "KDUtilities.h"
+#import "KDColorHelper.h"
 
 @implementation KDTextView {
     UILabel *_placeholderLabel;
@@ -78,3 +81,4 @@ KDUtilRemoveNotificationCenterObserverDealloc
 }
 
 @end
+#endif

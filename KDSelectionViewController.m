@@ -7,7 +7,7 @@
 //
 
 #import "KDSelectionViewController.h"
-
+#import "NSArray+KDUtilities.h"
 @interface KDSelectionViewController () {
     NSArray *_options;
     

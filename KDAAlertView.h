@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#if TARGET_OS_MAC
 @interface KDAAlertView : NSWindow
 
 + (void)requestInputTextInWindow:(NSWindow *)window
@@ -23,3 +23,4 @@
 @property (nonatomic, copy) BOOL (^validateBlock)();
 
 @end
+#endif

@@ -7,6 +7,7 @@
 //
 
 #import "KDLabel.h"
+#import "UILabel+ResizeHelper.h"
 
 @implementation KDLabel
 

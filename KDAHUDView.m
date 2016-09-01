@@ -5,7 +5,7 @@
 //  Created by Blankwonder on 11/28/15.
 //  Copyright © 2015 Netpas. All rights reserved.
 //
-
+#if TARGET_OS_MAC
 #import "KDAHUDView.h"
 #import <QuartzCore/QuartzCore.h>
 
@@ -99,3 +99,4 @@ static const CGFloat kSize = 80;
 }
 
 @end
+#endif

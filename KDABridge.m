@@ -7,6 +7,7 @@
 //
 
 #import "KDABridge.h"
+#if TARGET_OS_MAC
 
 @implementation NSTextField (KDABridge)
 
@@ -19,3 +20,4 @@
 }
 
 @end
+#endif
