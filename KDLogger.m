@@ -21,6 +21,7 @@ static NSUncaughtExceptionHandler *__previousExceptionHandler;
 static KDLoggerCustomActionBlock __customActionBlock;
 
 static BOOL __loggerEnabled = YES;
+
 void KDLoggerSetEnabled(BOOL enabled) {
     __loggerEnabled = enabled;
 }
